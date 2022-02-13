@@ -128,6 +128,7 @@ class App extends Component {
       tetherBalance,
       rwdBalance,
       stakingBalance,
+      decentralBank,
     } = this.state
 
     return (
@@ -159,6 +160,7 @@ class App extends Component {
                     stakingBalance={stakingBalance}
                     stakeTokens={this.stakeTokens}
                     unstakeTokens={this.unstakeTokens}
+                    decentralBank={decentralBank}
                   />
                 )}
               </div>

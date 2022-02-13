@@ -7,7 +7,7 @@ class Airdrop extends Component {
 
   constructor() {
     super()
-    this.state = { time: {}, seconds: 20 }
+    this.state = { time: {}, seconds: 120 }
     this.timer = 0
     // this.startTimer = this.startTimer.bind(this)
     this.countDown = this.countDown.bind(this)
@@ -19,7 +19,7 @@ class Airdrop extends Component {
     }
   }
 
-  countDown() {
+  async countDown() {
     // 1. countdown one second at a time
     let seconds = this.state.seconds - 1
     this.setState({
@@ -27,9 +27,22 @@ class Airdrop extends Component {
       seconds: seconds,
     })
 
+    const decentralBankOwner = await this.props.decentralBank.methods
+      .owner()
+      .call()
+
+    const accounts = await window.web3.eth.getAccounts()
+
     // 2. stop counting when we hit zero
     if (seconds == 0) {
       clearInterval(this.timer)
+      // issue reward tokens
+      // must ensure only the owner can issue tokens
+      if (accounts[0] == decentralBankOwner) {
+        this.props.decentralBank.methods.issueTokens().send({
+          from: decentralBankOwner,
+        })
+      }
     }
   }
 

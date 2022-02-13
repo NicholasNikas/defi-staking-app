@@ -10,6 +10,7 @@ class Main extends Component {
       stakingBalance,
       stakeTokens,
       unstakeTokens,
+      decentralBank,
     } = this.props
     return (
       <div id='content' className='mt-3'>
@@ -81,7 +82,11 @@ class Main extends Component {
             WITHDRAW
           </button>
           <div className='card-body text-center' style={{ color: 'blue' }}>
-            AIRDROP <Airdrop stakingBalance={stakingBalance} />
+            AIRDROP
+            <Airdrop
+              stakingBalance={stakingBalance}
+              decentralBank={decentralBank}
+            />
           </div>
         </div>
       </div>
